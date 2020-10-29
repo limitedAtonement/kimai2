@@ -1,0 +1,12 @@
+from composer:latest
+
+run apk update
+run apk add php-sqlite3 php-intl php-zip php-gd php-mbstring php-xml libpng \
+    libpng-dev libjpeg-turbo-dev libwebp-dev zlib-dev libxpm-dev gd gettext-dev icu-dev libxslt-dev \
+    && docker-php-ext-install gd intl xsl
+workdir /app/
+entrypoint /entrypoint
+copy /docker/entrypoint /
+#run rm /app/var/data/kimai_test.sqlite
+#volume /app/var/data/kimai_test.sqlite
+# Following instructions at https://www.kimai.org/documentation/developers.html

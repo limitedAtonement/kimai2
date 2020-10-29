@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e;
+docker build -t kimai-dev-image -f dockerfile-debug ..;
+if [[ ! -e kimai_test.sqlite ]]; then
+    touch kimai_test.sqlite;
+fi;
+docker run -ti --rm --name kimai-dev \
+    --env APP_ENV=dev \
+    -p 8080:8080 \
+    -v "$PWD"/../:/app/ \
+    kimai-dev-image;
+    #-v "$PWD"/kimai_test.sqlite:/app/var/data/kimai_test.sqlite \
